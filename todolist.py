@@ -25,9 +25,13 @@ class ToDoList:
 
     def main(self):
         while True:
-            print("1) Today's tasks\n2) Week's tasks")
-            print("3) All tasks\n4) Missed tasks\n5) Add task")
-            print("6) Delete task\n0) Exit")
+            print("1) Today's tasks")
+            print("2) Week's tasks")
+            print("3) All tasks")
+            print("4) Missed tasks")
+            print("5) Add task")
+            print("6) Delete task")
+            print("0) Exit")
             menu = input()
 
             if menu == '1':
