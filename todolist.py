@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, Column, String, Integer, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timedelta
+
 Base = declarative_base()
 
 
@@ -71,8 +72,8 @@ class ToDoList:
 
     def all_tasks(self):
         print("\nAll tasks:")
+        
         tasks = self.session.query(Table).order_by(Table.deadline).all()
-
         for n, task in enumerate(tasks):
             date = task.deadline
             print(f"{n+1}. {task}. {date.day} {date.strftime('%b')}")
@@ -83,12 +84,13 @@ class ToDoList:
                         deadline=datetime.strptime(input("Enter deadline\n"), '%Y-%m-%d'))
         self.session.add(new_row)
         self.session.commit()
+        
         print("The task has been added!\n")
 
     def del_missed(self):
-        tasks = self.session.query(Table).filter(Table.deadline < datetime.today().date()).all()
         print("\nMissed tasks:")
 
+        tasks = self.session.query(Table).filter(Table.deadline < datetime.today().date()).all()
         if tasks:
             for n, task in enumerate(tasks):
                 print(f"{n+1}. {task}")
@@ -103,11 +105,14 @@ class ToDoList:
         if tasks_to_del:
             for n, task in enumerate(tasks_to_del):
                 print(f"{n+1}. {task}")
+            
             choice = int(input())
             task = tasks_to_del[choice-1]
             self.session.delete(task)
             self.session.commit()
+            
             print("The task has been deleted!\n")
+        
         else:
             print("Nothing to delete\n")
 
